@@ -1,71 +1,59 @@
 
-//window.onload = function() {
 $(document).ready(function () {
-    //("#crystal1").click(randomNumber.crystal1);
-    //("#crystal2").click(randomNumber.crystal2);
-    //("#crystal3").click(randomNumber.crystal3);
-    //("#crystal4").click(randomNumber.crystal4);
-    // or try .append
+
+    var currentSum = 0;
+    var wins = 0;
+    var losses = 0;
+
     var crystal1 = (Math.floor(Math.random() * 12 + 1));
     var crystal2 = (Math.floor(Math.random() * 12 + 1));
     var crystal3 = (Math.floor(Math.random() * 12 + 1));
     var crystal4 = (Math.floor(Math.random() * 12 + 1));
-    //var crystalNumbers = [crystalStart1, crystalStart2, crystalStart3, crystalStart4];
 
-    //var numbersMatch = false;
-    //var crystalPressed = false;
-    //var changeNumberWhenPressed = false;
     var randomGen = Math.floor(Math.random() * 100 + 19);
-    $("#randomGenerated").text(randomGen);
+    $("#randomGenerated").text("Can You Collect " + randomGen + " Crystals?");
     console.log(randomGen);
 
-    //var totalSum = 0;
-    var currentSum = 0;
-    var wins = "";
-    var losses = "";
-    // how to console log?
+    function resetGame() {
+        crystal1 = (Math.floor(Math.random() * 12 + 1));
+        crystal2 = (Math.floor(Math.random() * 12 + 1));
+        crystal3 = (Math.floor(Math.random() * 12 + 1));
+        crystal4 = (Math.floor(Math.random() * 12 + 1));
 
+        currentSum = 0;
 
-    //var crystalRandomNumber=(Math.floor(Math.random()*12+1));
-
-    //$(".crystal").on("click", function() {
-    //    var crystalRandomNumber=0+(Math.floor(Math.random()*12+1));
-    //    console.log(crystalRandomNumber);
-    //});
-    //event.target ---- look up
-
+        randomGen = Math.floor(Math.random() * 100 + 19);
+        $("#randomGenerated").text("Can You Collect " + randomGen  + " Crystals?");
+        console.log(randomGen);
+    };
     $(".crystal").on("click", function (event) {
         var numbersMatch = false;
         console.log(event.target.id);
         if (event.target.id === "crystal1") {
             currentSum += crystal1;
             console.log(currentSum);
-        }if (event.target.id === "crystal2") {
+        } if (event.target.id === "crystal2") {
             currentSum += crystal2;
             console.log(currentSum);
-        }if (event.target.id === "crystal3") {
+        } if (event.target.id === "crystal3") {
             currentSum += crystal3;
             console.log(currentSum);
-        }if (event.target.id === "crystal4") {
+        } if (event.target.id === "crystal4") {
             currentSum += crystal4;
             console.log(currentSum);
-        }$("#numbersAdded").text(currentSum);
-
-
-    });
-
-    // if (currentSum === randomGen) {
-    //     wins++;
-    //     $("#wins").text(wins);
-    // } if (totalSum > randomGen) {
-    //     losses++;
-    //     $("#losses").text(losses);
-    // } if (totalSum < randomGen) {
-    //     $(".crystal").on("click", { x: i }, function () {
-    //         currentSum = totalSum + indexOf(crystalArray);
-    //         $("#yourScore").text(currentSum);
-    //     });
-    // };
-
+        }
+        $("#numbersAdded").text(currentSum);
+        if (currentSum > randomGen) {
+            losses++;
+            resetGame();
+            $("#losses").text("Losses: " + losses);
+            $("#youWinOrLose").text("Game Over.  Try Again?");
+        } if (currentSum === randomGen) {
+            wins++;
+            $("#wins").text("Wins: " + wins);
+            $("#youWinOrLose").text("Victory!  Perfect Collection!");
+            resetGame();
+        }
+    })
 });
 
